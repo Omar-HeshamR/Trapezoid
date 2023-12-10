@@ -5,7 +5,10 @@ import { SIZING } from '@/library/theme'
 import Image from 'next/image'
 import AvalancheLogo from '@/public/images/AvalancheLogo.webp'
 
-const InitialSuccessfulGenerationResult = ({imageGenerated, generationPrompt, handleGenerationPromptChange, regenerateImage, mintNFT}) => {
+const InitialSuccessfulGenerationResult = (
+    {imageGenerated, generationPrompt, handleGenerationPromptChange, regenerateImage, mintNFT,
+        price,setPrice}) => {
+            
   return (
     <GeneratedDiv>
 
@@ -48,6 +51,8 @@ const InitialSuccessfulGenerationResult = ({imageGenerated, generationPrompt, ha
                 type="number" 
                 autocomplete="off"
                 required
+                value={price}
+                onChange={(e) => setPrice(e.target.value)}
             />
             <AVAXRow>
             <Image src={AvalancheLogo} alt="Avalanche" />

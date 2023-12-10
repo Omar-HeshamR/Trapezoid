@@ -5,10 +5,13 @@ const Context = createContext();
 
 export const StateContext = ({ children }) => {
 
-const [ selectedNFT, setSelectedNFT ] = useState(undefined);
-const [ showBuyModal, setShowBuyModal ] = useState(false);
-const [ connectedAddress, setConnectedAddress] = useState(undefined);
-const [ signer, setSigner ] = useState(undefined);
+  const Trapezoid_contract_address = "0x3db865a78c500363cFe049E212Bd970fa209F59e";
+  const chainlink_functions_contract_adress = "";
+
+  const [ selectedNFT, setSelectedNFT ] = useState(undefined);
+  const [ showBuyModal, setShowBuyModal ] = useState(false);
+  const [ connectedAddress, setConnectedAddress] = useState(undefined);
+  const [ signer, setSigner ] = useState(undefined);
 
 async function connectWallet() {
   if (typeof window.ethereum !== 'undefined') {
@@ -37,11 +40,13 @@ return(
         signer,
         connectWallet,
         connectedAddress,
-      
+
         selectedNFT, 
         setSelectedNFT,
         showBuyModal,
-        setShowBuyModal
+        setShowBuyModal,
+
+        Trapezoid_contract_address
     }}
     >
       {children}

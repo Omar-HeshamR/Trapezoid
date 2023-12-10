@@ -11,56 +11,83 @@ import IsMinting from '@/components/CreateNFT/IsMinting'
 import IsMinted from '@/components/CreateNFT/IsMinted'
 import InitialScreen from '@/components/CreateNFT/InitialScreen'
 import toast from 'react-hot-toast'
+import TRAPEZOIDABI from '@/library/TrapezoidABI.json'
+import { useStateContext } from '@/context/StateContext.js'
+import { useRouter } from 'next/router'
+import { BigNumber, ethers } from 'ethers';
+import { useStorage } from '@thirdweb-dev/react';
 
 const CreateNFT = () => {
 
+  const { signer, connectedAddress, Trapezoid_contract_address } = useStateContext();
   const [initialImageGenerationLoad, setInitialImageGenerationLoad] = useState(false);
   const [initialSuccessfulGenerationResult, setInitialSuccessfulGenerationResult] = useState(false);
   const [name, setName] = useState('');
+  const [price,setPrice] = useState();
   const [generationPrompt, setGenerationPrompt] = useState('');
   const [imageGenerated, setImageGenerated] = useState();
   const [isMinting, setIsMinting] = useState(false)
   const [isMinted, setIsMinted] = useState(false)
+  const router = useRouter();
+  const storage = useStorage();
 
-  const OpenAI = require("openai")
-  const openai = new OpenAI({
-    apiKey: 'API-KEY-TESTING',
-    dangerouslyAllowBrowser: true
-  })
-
-  async function image_generate(){
+  async function callImageGenerateApi() {
     if (name.trim() === '' || generationPrompt.trim() === '') {
       toast.error('Please fill in the Name and Generation Prompt before generating.')
       return;
-    }else{
-        console.log("started")
-        console.log(generationPrompt)
-        setInitialImageGenerationLoad(true)
-        const response =  await openai.images.generate({
-          model: 'dall-e-3',
-          prompt: generationPrompt,
-          n: 1,
-          size: "1024x1024"
-        })
-        console.log("response", response)
-        setImageGenerated(response.data[0])
-        setInitialImageGenerationLoad(false)
-        setInitialSuccessfulGenerationResult(true)
     }
-  }
+    console.log(generationPrompt)
+    setInitialImageGenerationLoad(true)
+    const response = await fetch('/api/generateArt', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ generationPrompt }),
+    });
 
-  function mintNFT() {
+    if (!response.ok) {
+         toast.error('Error in Generation, please try again.')
+         setInitialImageGenerationLoad(false)
+         return;
+    }
+    const imageJson = await response.json();
+    console.log("response", imageJson)
+    setImageGenerated(imageJson.image)
+    setInitialImageGenerationLoad(false)
+    setInitialSuccessfulGenerationResult(true)
+}
+
+  async function mintNFT() {
+    if(!signer){
+      toast.error("CONNECT WALLET!")
+      return; 
+    }
     setInitialSuccessfulGenerationResult(false);
     setIsMinting(true);
-    setTimeout(() => {
+    try{
+      const metadata = {
+        name: name,
+        artist: connectedAddress,
+        prompt: generationPrompt,
+        price: price
+    };
+      const contract = new ethers.Contract(Trapezoid_contract_address, TRAPEZOIDABI, signer);
+      const url = await storage.upload(metadata);
+      const tx = await contract.mintNFT(url, price * 10**18);
+      await tx.wait();
       setIsMinting(false);
       setIsMinted(true);
-    }, 10000);
+    }catch(err){
+      setIsMinting(false);
+      toast.error(`ERROR: ${err}`)
+      console.log(err)
+    }
   };
 
   const regenerateImage = async () => {
     setInitialSuccessfulGenerationResult(false);
-    await image_generate();
+    await callImageGenerateApi();
   };
 
   const handleNameChange = (e) => {
@@ -107,6 +134,8 @@ const CreateNFT = () => {
               handleGenerationPromptChange={handleGenerationPromptChange}
               regenerateImage={regenerateImage}
               mintNFT={mintNFT}
+              price={price}
+              setPrice={setPrice}
             />
 
           ) : isMinting ? (
@@ -127,7 +156,7 @@ const CreateNFT = () => {
               handleNameChange={handleNameChange}
               generationPrompt={generationPrompt}
               handleGenerationPromptChange={handleGenerationPromptChange}
-              image_generate={image_generate}
+              image_generate={callImageGenerateApi}
             />
 
           )}
