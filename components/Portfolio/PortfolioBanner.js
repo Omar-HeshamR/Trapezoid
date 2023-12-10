@@ -2,12 +2,16 @@ import React from 'react'
 import styled from 'styled-components'
 import { COLORS } from '@/library/theme'
 import { SIZING } from '@/library/theme'
+import { useStateContext } from '@/context/StateContext.js'
 
 const PortfolioBanner = () => {
+  
+    const { connectedAddress } = useStateContext();
+
   return (
     <Section>
         <WalletAddress>
-            0xAbCdEf0123456789AaBbCcDdEfFgHiJkLmNnOpQrStUvWxYz
+            {connectedAddress ? connectedAddress : 'Please connect wallet'}
         </WalletAddress>
         <RightRow>
             <OwnedCreatedSpan>

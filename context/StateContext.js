@@ -5,7 +5,7 @@ const Context = createContext();
 
 export const StateContext = ({ children }) => {
 
-  const Trapezoid_contract_address = "0x3db865a78c500363cFe049E212Bd970fa209F59e";
+  const Trapezoid_contract_address = "0x24D5AF3Cd68d0C98DE722D68b38a5F19af98692f";
   const chainlink_functions_contract_adress = "";
 
   const [ selectedNFT, setSelectedNFT ] = useState(undefined);

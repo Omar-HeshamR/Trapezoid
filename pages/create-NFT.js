@@ -70,11 +70,13 @@ const CreateNFT = () => {
         name: name,
         artist: connectedAddress,
         prompt: generationPrompt,
-        price: price
+        price: price,
+        image: imageGenerated.url
     };
       const contract = new ethers.Contract(Trapezoid_contract_address, TRAPEZOIDABI, signer);
       const url = await storage.upload(metadata);
-      const tx = await contract.mintNFT(url, price * 10**18);
+      const priceInWei = ethers.utils.parseEther(price.toString());
+      const tx = await contract.mintNFT(url, priceInWei);
       await tx.wait();
       setIsMinting(false);
       setIsMinted(true);
@@ -115,6 +117,7 @@ const CreateNFT = () => {
             COLORS.Pink500Default,
             COLORS.Yellow800Default,
           ]}
+          gravity={3}
         />
         )}
 

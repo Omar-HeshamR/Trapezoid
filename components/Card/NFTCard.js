@@ -17,6 +17,7 @@ const NFTCard = ({ nft }) => {
   const ownerRef = useRef(null)
 
   useEffect(() => {
+    console.log(nft)
     const checkOverflow = () => {
       const isOverflowed = ownerRef.current.scrollWidth > ownerRef.current.clientWidth;
       setIsOwnerTextOverflowed(isOverflowed);
@@ -27,6 +28,7 @@ const NFTCard = ({ nft }) => {
       window.removeEventListener('resize', checkOverflow);
     };
   }, []);
+  const formatString = str => `${str.slice(0, 5)}...${str.slice(-5)}`;
 
   return (
     <Card>
@@ -35,16 +37,16 @@ const NFTCard = ({ nft }) => {
       <>
       <ImageContainer>
         <Owner ref={ownerRef} isOverflowed={isOwnerTextOverflowed}>
-          @{nft.owner}
+          @{formatString(nft.artist)}
         </Owner>
-        <Image src={nft.image} alt={nft.name} layout="responsive" />
+        <Image src={nft.image} alt={nft.name} width={1024} height={300}/>
       </ImageContainer>
 
       <BottomContainer>
 
         <NFTCardName>{nft.name}</NFTCardName>
 
-        {!nft.ownsNFT && (
+        {!nft.isOwner && (
           <PriceRow>
             <NFTCardPrice>{nft.price}</NFTCardPrice>
             <AVAXRow>
@@ -54,19 +56,19 @@ const NFTCard = ({ nft }) => {
           </PriceRow>
         )}
 
-        {nft.ownsNFT && 
+        {(nft.isOwner || nft.isMaker) && 
             <OwnerSpan>
-                Owner
+                {nft.isMaker ? 'Maker Artist' : 'Owner'}
             </OwnerSpan>
         } 
 
         <ButtonRow>
-            {nft.ownsNFT && (
+            {nft.isOwner && (
             <ViewPromptButton onClick={() => {setSelectedNFT(nft); setShowPromptCard(true)}} >
               View prompt
             </ViewPromptButton>
             )}
-            {!nft.ownsNFT && 
+            {!nft.isOwner && 
             <BuyButton onClick={() => {setSelectedNFT(nft); setShowBuyModal(true);}}>
               Buy
             </BuyButton>
