@@ -5,6 +5,7 @@ const nextConfig = {
     styledComponents: true,
   },
   images: {
+    domains: ['*'],
     remotePatterns: [
       {
         protocol: 'https',
