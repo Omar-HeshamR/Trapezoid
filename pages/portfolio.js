@@ -63,7 +63,7 @@ return (
         {!signer && <div>Please connect wallet</div>}
 
         <CardGrid>
-        <PortfolioBanner />
+        <PortfolioBanner nfts={nfts}/>
             {nfts && nfts.map((nft, index) => (
               <NFTCard
                 key={index}

@@ -1,12 +1,24 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
 import { COLORS } from '@/library/theme'
 import { SIZING } from '@/library/theme'
 import { useStateContext } from '@/context/StateContext.js'
 
-const PortfolioBanner = () => {
+const PortfolioBanner = ({nfts}) => {
   
-    const { connectedAddress } = useStateContext();
+  const { connectedAddress } = useStateContext();
+  const [totalOwned, setTotalOwned] = useState();
+  const [totalCreated, setTotalCreated] = useState();
+
+  useEffect(() => {
+    if (nfts && connectedAddress) {
+      const owned = nfts.filter(nft => nft.owners.includes(connectedAddress)).length;
+      const created = nfts.filter(nft => nft.isMaker).length;
+
+      setTotalOwned(owned);
+      setTotalCreated(created);
+    }
+  }, [nfts, connectedAddress]);
 
   return (
     <Section>
@@ -15,10 +27,10 @@ const PortfolioBanner = () => {
         </WalletAddress>
         <RightRow>
             <OwnedCreatedSpan>
-                329 NFTs owned
+                {totalOwned ? `${totalOwned} NFTs owned` : 'Loading...'} 
             </OwnedCreatedSpan>
             <OwnedCreatedSpan>
-                45 NFTs created
+                {totalCreated ? `${totalCreated} NFTs created` : 'Loading...'} 
             </OwnedCreatedSpan>
         </RightRow>
     </Section>
