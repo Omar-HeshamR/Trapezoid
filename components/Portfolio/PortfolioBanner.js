@@ -28,10 +28,10 @@ const PortfolioBanner = ({nfts}) => {
         </WalletAddress>
         <RightRow>
             <OwnedCreatedSpan>
-                {totalOwned ? `${totalOwned} NFTs owned` : 'Loading...'} 
+                {totalOwned ? `${totalOwned} NFTs owned` : <>{totalOwned == 0 ? '0': 'Loading...'}</> } 
             </OwnedCreatedSpan>
             <OwnedCreatedSpan>
-                {totalCreated ? `${totalCreated} NFTs created` : 'Loading...'} 
+                {totalCreated ? `${totalCreated} NFTs created`:<>{totalCreated == 0 ? "0" : 'Loading...'}</> } 
             </OwnedCreatedSpan>
         </RightRow>
     </Section>

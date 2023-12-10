@@ -25,7 +25,8 @@ const Marketplace = () => {
         setLoadingMarketplace(false)
         return
       }
-      try{const contract = new ethers.Contract(Trapezoid_contract_address, TRAPEZOIDABI, signer);
+      try{
+      const contract = new ethers.Contract(Trapezoid_contract_address, TRAPEZOIDABI, signer);
       const tokenURIs = await contract.getAllTokenURIs(); // Replace with your contract's method
       const dataPromises = tokenURIs.map(async (uri, index) => {
         const data = await storage.download(uri);
@@ -35,6 +36,7 @@ const Marketplace = () => {
         finalNFT.owners = ownersList
         finalNFT.isMaker = finalNFT.artist == connectedAddress;
         finalNFT.isOwner = ownersList.some(owner => owner.toLowerCase() === connectedAddress.toLowerCase());
+        finalNFT.tokenId = index
         return finalNFT;
       });
       const allNFTs = await Promise.all(dataPromises);

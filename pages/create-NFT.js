@@ -14,12 +14,12 @@ import toast from 'react-hot-toast'
 import TRAPEZOIDABI from '@/library/TrapezoidABI.json'
 import { useStateContext } from '@/context/StateContext.js'
 import { useRouter } from 'next/router'
-import { BigNumber, ethers } from 'ethers';
-import { useStorage } from '@thirdweb-dev/react';
+import { ethers } from 'ethers';
+import { useStorage, useAddress, useSigner } from '@thirdweb-dev/react';
 
 const CreateNFT = () => {
 
-  const { signer, connectedAddress, Trapezoid_contract_address } = useStateContext();
+  const { Trapezoid_contract_address } = useStateContext();
   const [initialImageGenerationLoad, setInitialImageGenerationLoad] = useState(false);
   const [initialSuccessfulGenerationResult, setInitialSuccessfulGenerationResult] = useState(false);
   const [name, setName] = useState('');
@@ -30,6 +30,8 @@ const CreateNFT = () => {
   const [isMinted, setIsMinted] = useState(false)
   const router = useRouter();
   const storage = useStorage();
+  const signer = useSigner();
+  const connectedAddress = useAddress();
 
   async function callImageGenerateApi() {
     if (name.trim() === '' || generationPrompt.trim() === '') {

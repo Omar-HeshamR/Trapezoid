@@ -47,14 +47,9 @@ const HeroNavbar = () => {
                     Create NFT
                 </MenuItem>
             </Menu>
-            { connectedAddress ? 
-            <ConnectWalletButton>
-                {formatString(connectedAddress)}
-            </ConnectWalletButton>
-            : <ConnectWalletButton onClick={connectWallet}>
+            <ConnectWalletButton theme={'dark'}>
                 Connect Wallet
             </ConnectWalletButton>
-            }
         </LeftRow>
 
     </Nav>

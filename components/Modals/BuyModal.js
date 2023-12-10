@@ -13,7 +13,6 @@ const BuyModal = () => {
   const [ isLoading, setIsLoading ] = useState(true)
   const [ showSuccess, setShowSuccess ] = useState(false) 
 
-
   return (
     <>
       {showBuyModal &&

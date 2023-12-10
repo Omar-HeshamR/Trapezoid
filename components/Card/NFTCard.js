@@ -5,15 +5,18 @@ import { COLORS } from '@/library/theme'
 import Image from 'next/image'
 import AvalancheLogo from '@/public/images/AvalancheLogo.webp'
 import { useStateContext } from '@/context/StateContext';
+import { useSigner } from '@thirdweb-dev/react';
 import PromptCard from './PromptCard'
+import { ethers } from 'ethers'
+import TRAPEZOIDABI from '@/library/TrapezoidABI.json'
+import toast from 'react-hot-toast'
 
 const NFTCard = ({ nft }) => {
 
-  const { showBuyModal, setShowBuyModal} = useStateContext();
-
+  const { showBuyModal, setShowBuyModal, Trapezoid_contract_address } = useStateContext();
   const [ showPromptCard, setShowPromptCard ] = useState(false)
   const [ isOwnerTextOverflowed, setIsOwnerTextOverflowed] = useState(false)
-
+  const signer = useSigner();
   const ownerRef = useRef(null)
 
   useEffect(() => {
@@ -28,6 +31,28 @@ const NFTCard = ({ nft }) => {
       window.removeEventListener('resize', checkOverflow);
     };
   }, []);
+
+  async function handleBuy(){
+    try{
+      setShowBuyModal(true)
+      if(!signer){
+        toast.error(`Connect Wallet to Fuji C-chain to see NFTs!`)
+        setLoadingMarketplace(false)
+        return
+      }
+      const contract = new ethers.Contract(Trapezoid_contract_address, TRAPEZOIDABI, signer);
+      const priceInWei = ethers.utils.parseEther(nft.price.toString());
+      const tx = await contract.buyNFT(nft.tokenId, {
+        value: priceInWei // Specify the msg.value as priceInWei
+      });
+      await tx.wait();
+      setShowBuyModal(false)
+      toast.success(`Successfully bought!`)
+    }catch(err){
+      console.log(err)
+      setShowBuyModal(false)
+    }
+  }
 
   const formatString = str => `${str.slice(0, 5)}...${str.slice(-5)}`;
 
@@ -69,7 +94,7 @@ const NFTCard = ({ nft }) => {
             </ViewPromptButton>
             )}
             {!nft.isOwner && 
-            <BuyButton onClick={() => {setShowBuyModal(true);}}>
+            <BuyButton onClick={handleBuy}>
               Buy
             </BuyButton>
             }
