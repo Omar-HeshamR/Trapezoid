@@ -6,6 +6,7 @@ import { StateContext } from '@/context/StateContext';
 import BuyModal from '@/components/Modals/BuyModal';
 import { Toaster } from 'react-hot-toast';
 import { ThirdwebProvider} from "@thirdweb-dev/react";
+import 'library/global.css'
 
 export const GlobalStyle = createGlobalStyle`
   * 
@@ -25,39 +26,6 @@ export const GlobalStyle = createGlobalStyle`
     a {
       color: inherit; 
       text-decoration: none; 
-    }
-
-    @font-face {
-      font-family: "Haskoy Bold";
-      src: url("/fonts/Haskoy/Bold.otf");
-    }
-    @font-face {
-      font-family: "Haskoy Extra Bold";
-      src: url("/fonts/Haskoy/ExtraBold.otf");
-    }
-    @font-face {
-      font-family: "Haskoy Extra Light";
-      src: url("/fonts/Haskoy/ExtraLight.otf");
-    }
-    @font-face {
-      font-family: "Haskoy Light";
-      src: url("/fonts/Haskoy/Light.otf");
-    }
-    @font-face {
-      font-family: "Haskoy Medium";
-      src: url("/fonts/Haskoy/Medium.otf");
-    }
-    @font-face {
-      font-family: "Haskoy Regular";
-      src: url("/fonts/Haskoy/Regular.otf");
-    }
-    @font-face {
-      font-family: "Haskoy Semibold";
-      src: url("/fonts/Haskoy/Semibold.otf");
-    }
-    @font-face {
-      font-family: "Haskoy Thin";
-      src: url("/fonts/Haskoy/Thin.otf");
     }
   }
 `

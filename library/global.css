@@ -1,0 +1,32 @@
+@font-face {
+    font-family: "Haskoy Bold";
+    src: url(/fonts/Haskoy/Bold.otf) format("opentype");
+  }
+  @font-face {
+    font-family: "Haskoy Extra Bold";
+    src: url(/fonts/Haskoy/ExtraBold.otf) format("opentype");
+  }
+  @font-face {
+    font-family: "Haskoy Extra Light";
+    src: url(/fonts/Haskoy/ExtraLight.otf) format("opentype");
+  }
+  @font-face {
+    font-family: "Haskoy Light";
+    src: url(/fonts/Haskoy/Light.otf) format("opentype");
+  }
+  @font-face {
+    font-family: "Haskoy Medium";
+    src: url(/fonts/Haskoy/Medium.otf) format("opentype");
+  }
+  @font-face {
+    font-family: "Haskoy Regular";
+    src: url(/fonts/Haskoy/Regular.otf) format("opentype");
+  }
+  @font-face {
+    font-family: "Haskoy Semibold";
+    src: url(/fonts/Haskoy/Semibold.otf) format("opentype");
+  }
+  @font-face {
+    font-family: "Haskoy Thin";
+    src: url(/fonts/Haskoy/Thin.otf) format("opentype");
+  }

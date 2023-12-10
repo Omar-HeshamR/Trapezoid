@@ -5,11 +5,11 @@ const nextConfig = {
     styledComponents: true,
   },
   images: {
-    domains: ['*'],
+    // domains: ['*'],
     remotePatterns: [
       {
-        protocol: 'https',
-        hostname: 'oaidalleapiprodscus.blob.core.windows.net',
+        protocol: '*',
+        hostname: '*',
         port: '',
         pathname: '/private/org-uq9DTCD21oHszeo5Vo4PCiCC/user-sHeLdfm7fa3rDfHCMzg1mWSj/**',
       },
