@@ -4,10 +4,11 @@ import { SIZING } from '@/library/theme'
 import { COLORS } from '@/library/theme'
 import TopBarLogo from './TopBarLogo'
 import { useRouter } from 'next/router'
-import { ConnectWallet } from '@thirdweb-dev/react'
+import { useStateContext } from '../../context/StateContext'
 
 const TopBar = ({marketplace, portfolio, createNFT}) => {
 
+  const { connectedAddress, connectWallet } = useStateContext();
   const router = useRouter()
 
   function goToMarketplace() {
@@ -21,6 +22,8 @@ const TopBar = ({marketplace, portfolio, createNFT}) => {
   function goToCreateNFT() {
     router.push("/create-NFT")
   }
+
+  const formatString = str => `${str.slice(0, 7)}...${str.slice(-5)}`;
 
   return (
     <Section>
@@ -57,9 +60,14 @@ const TopBar = ({marketplace, portfolio, createNFT}) => {
                     </MenuItem>
                 )}
             </Menu>
+            { connectedAddress ? 
             <ConnectWalletButton>
+                {formatString(connectedAddress)}
+            </ConnectWalletButton>
+            : <ConnectWalletButton onClick={connectWallet}>
                 Connect Wallet
             </ConnectWalletButton>
+            }
         </Nav>
 
     </Section>
@@ -134,6 +142,7 @@ background-color: rgba(255, 251, 254, 0.15);
 border: 1px solid rgba(255, 251, 254, 0.2);
 outline: none;
 transition: 0.2s ease-in-out;
+z-index: 3;
 cursor: pointer;
 
 &:hover{

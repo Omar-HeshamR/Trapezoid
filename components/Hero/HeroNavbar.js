@@ -5,11 +5,13 @@ import { SIZING } from '@/library/theme'
 import Image from 'next/image'
 import TrapezoidLogoLight from '@/public/images/TrapezoidLogoLight.webp'
 import { useRouter } from 'next/router'
-
+import { useStateContext } from '../../context/StateContext'
 
 const HeroNavbar = () => {
 
+    const { connectedAddress, connectWallet } = useStateContext();
     const router = useRouter()
+    const formatString = str => `${str.slice(0, 7)}...${str.slice(-5)}`;
 
     function goToMarketplace() {
         router.push("/marketplace")
@@ -45,9 +47,14 @@ const HeroNavbar = () => {
                     Create NFT
                 </MenuItem>
             </Menu>
+            { connectedAddress ? 
             <ConnectWalletButton>
+                {formatString(connectedAddress)}
+            </ConnectWalletButton>
+            : <ConnectWalletButton onClick={connectWallet}>
                 Connect Wallet
             </ConnectWalletButton>
+            }
         </LeftRow>
 
     </Nav>
