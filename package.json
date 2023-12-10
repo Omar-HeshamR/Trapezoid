@@ -1,5 +1,5 @@
 {
-  "name": "pixelpurse",
+  "name": "trapezoid",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -9,9 +9,15 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@chainlink/contracts": "^0.8.0",
+    "@chainlink/env-enc": "^1.0.5",
+    "@chainlink/functions-toolkit": "^0.2.8",
     "@thirdweb-dev/react": "^4.1.14",
+    "dotenv": "^16.3.1",
     "ethers": "^5.7.2",
     "next": "14.0.3",
+    "node-gyp": "^10.0.1",
+    "nodemon": "^3.0.2",
     "openai": "^4.20.1",
     "react": "^18",
     "react-confetti": "^6.1.0",
