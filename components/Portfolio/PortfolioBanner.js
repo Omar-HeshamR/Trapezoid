@@ -3,10 +3,11 @@ import styled from 'styled-components'
 import { COLORS } from '@/library/theme'
 import { SIZING } from '@/library/theme'
 import { useStateContext } from '@/context/StateContext.js'
+import { useAddress } from '@thirdweb-dev/react';
 
 const PortfolioBanner = ({nfts}) => {
   
-  const { connectedAddress } = useStateContext();
+  const connectedAddress  = useAddress();
   const [totalOwned, setTotalOwned] = useState();
   const [totalCreated, setTotalCreated] = useState();
 

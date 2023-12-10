@@ -5,16 +5,18 @@ import CardGridLoader from '@/components/Loaders/CardGridLoader'
 import NFTCard from '@/components/Card/NFTCard'
 import TRAPEZOIDABI from '@/library/TrapezoidABI.json'
 import { useStateContext } from '@/context/StateContext.js'
-import { useStorage } from '@thirdweb-dev/react';
+import { useAddress, useSigner, useStorage } from '@thirdweb-dev/react';
 import { ethers } from 'ethers';
 import toast from 'react-hot-toast'
 
 const Marketplace = () => {
 
-  const { signer, connectedAddress, Trapezoid_contract_address } = useStateContext();
+  const { Trapezoid_contract_address } = useStateContext();
   const [ nfts, setNfts ] = useState([])
   const [ loadingMarketplace, setLoadingMarketplace ] = useState(true);
   const storage = useStorage();
+  const signer = useSigner();
+  const connectedAddress = useAddress();
 
   useEffect(() => {
     const asyncFunc = async () => {
@@ -35,14 +37,14 @@ const Marketplace = () => {
         finalNFT.isOwner = ownersList.some(owner => owner.toLowerCase() === connectedAddress.toLowerCase());
         return finalNFT;
       });
-      const allNFTs  = await Promise.all(dataPromises);
-      setNfts(allNFTs );
+      const allNFTs = await Promise.all(dataPromises);
+      setNfts(allNFTs);
       console.log(allNFTs)
       setLoadingMarketplace(false)
     }catch(err){console.log(err)}
   }
   asyncFunc()
-  }, [signer])
+  }, [signer, connectedAddress])
   
   return (
     <Section>

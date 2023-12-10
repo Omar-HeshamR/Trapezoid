@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import {ethers} from 'ethers';
+import { useAddress, useSigner } from '@thirdweb-dev/react';
 
 const Context = createContext();
 
@@ -7,39 +8,12 @@ export const StateContext = ({ children }) => {
 
   const Trapezoid_contract_address = "0x24D5AF3Cd68d0C98DE722D68b38a5F19af98692f";
   const chainlink_functions_contract_adress = "";
-
   const [ selectedNFT, setSelectedNFT ] = useState(undefined);
   const [ showBuyModal, setShowBuyModal ] = useState(false);
-  const [ connectedAddress, setConnectedAddress] = useState(undefined);
-  const [ signer, setSigner ] = useState(undefined);
-
-async function connectWallet() {
-  if (typeof window.ethereum !== 'undefined') {
-      try {
-          const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
-          const provider = new ethers.providers.Web3Provider(window.ethereum);
-          const signer = provider.getSigner();
-          setSigner(signer)
-          const address = await signer.getAddress();
-          setConnectedAddress(address)
-          console.log(address)
-          return signer; 
-      } catch (error) {
-          console.error('User denied account access or an error occurred:', error);
-      }
-  } else {
-      console.error('Ethereum object (MetaMask) not found');
-  }
-}
 
 return(
     <Context.Provider
     value={{
-
-        // auth
-        signer,
-        connectWallet,
-        connectedAddress,
 
         selectedNFT, 
         setSelectedNFT,

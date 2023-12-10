@@ -6,13 +6,15 @@ import NFTCard from '@/components/Card/NFTCard'
 import PortfolioBanner from '@/components/Portfolio/PortfolioBanner'
 import TRAPEZOIDABI from '@/library/TrapezoidABI.json'
 import { useStateContext } from '@/context/StateContext.js'
-import { useStorage } from '@thirdweb-dev/react';
+import { useAddress, useSigner, useStorage } from '@thirdweb-dev/react';
 import { ethers } from 'ethers';
 import toast from 'react-hot-toast'
 
 const Portfolio = () => {
  
-  const { signer, Trapezoid_contract_address, connectedAddress } = useStateContext();
+  const { Trapezoid_contract_address } = useStateContext();
+  const signer = useSigner()
+  const connectedAddress = useAddress()
   const [ nfts, setNfts ] = useState([])  
   const [ loading, setLoading ] = useState(true);
   const storage = useStorage();
@@ -43,7 +45,7 @@ const Portfolio = () => {
     }catch(err){console.log(err)}
   }
   asyncFunc()
-  }, [signer])
+  }, [signer, connectedAddress])
 
   
 return (

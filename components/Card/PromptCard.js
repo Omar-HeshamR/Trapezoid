@@ -8,15 +8,6 @@ import toast from 'react-hot-toast'
 
 const PromptCard = ({showPromptCard, setShowPromptCard, selectedNFT}) => {
 
-  const generationPrompt = `
-  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do 
-  eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut 
-  enim ad minim veniam, quis nostrud exercitation ullamco laboris 
-  nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor 
-  in reprehenderit in voluptate velit esse cillum dolore eu fugiat 
-  nulla pariatur. Excepteur sint occaecat cupidatat non proident, 
-  sunt in culpa qui officia deserunt mollit anim id est laborum.
-  `  
   const descriptionRef = useRef(null);
 
   const handleCopy = () => {
@@ -45,31 +36,29 @@ const PromptCard = ({showPromptCard, setShowPromptCard, selectedNFT}) => {
 
   return (
     <>
-        {showPromptCard &&
-            <Card>
+      <Card>
 
-                <TopBanner>
-                  <NFTName>
-                    {selectedNFT?.name}
-                  </NFTName>
-                    <CloseIcon onClick={() => setShowPromptCard(false)} />
-                </TopBanner>
+          <TopBanner>
+            <NFTName>
+              {selectedNFT?.name}
+            </NFTName>
+              <CloseIcon onClick={() => setShowPromptCard(false)} />
+          </TopBanner>
 
-                <BottomContent>
+          <BottomContent>
 
-                    <Description ref={descriptionRef}>
-                        {generationPrompt}
-                    </Description>
-                
-                    <CopyButton onClick={handleCopy}>
-                        Copy to clipboard
-                        <CopyIcon />
-                    </CopyButton>
+              <Description ref={descriptionRef}>
+                  {selectedNFT.prompt}
+              </Description>
+          
+              <CopyButton onClick={handleCopy}>
+                  Copy to clipboard
+                  <CopyIcon />
+              </CopyButton>
 
-                </BottomContent>
+          </BottomContent>
 
-            </Card>
-        }
+      </Card>
     </>
   )
 }

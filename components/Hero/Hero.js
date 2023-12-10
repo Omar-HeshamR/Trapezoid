@@ -6,7 +6,6 @@ import CardSlider from './CardSlider.js'
 import HeroNavbar from './HeroNavbar.js'
 import { useRouter } from 'next/router'
 
-
 const Hero = () => {
 
   const router = useRouter()

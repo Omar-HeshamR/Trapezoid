@@ -6,10 +6,10 @@ import Image from 'next/image'
 import TrapezoidLogoLight from '@/public/images/TrapezoidLogoLight.webp'
 import { useRouter } from 'next/router'
 import { useStateContext } from '../../context/StateContext'
+import { ConnectWallet } from '@thirdweb-dev/react';
 
 const HeroNavbar = () => {
 
-    const { connectedAddress, connectWallet } = useStateContext();
     const router = useRouter()
     const formatString = str => `${str.slice(0, 7)}...${str.slice(-5)}`;
 
@@ -122,7 +122,7 @@ background-color: rgba(255, 251, 254, 0.1);
 outline: 1px solid rgba(255, 251, 254, 0.5);
 }
 `
-const ConnectWalletButton = styled.button`
+const ConnectWalletButton = styled(ConnectWallet)`
 padding: ${SIZING.px16} ${SIZING.px24};
 font-size: ${SIZING.px16};
 letter-spacing: -0.02rem;

@@ -4,12 +4,13 @@ import { SIZING } from '@/library/theme'
 import { COLORS } from '@/library/theme'
 import TopBarLogo from './TopBarLogo'
 import { useRouter } from 'next/router'
-import { useStateContext } from '../../context/StateContext'
+import { useAddress, useSigner, ConnectWallet } from '@thirdweb-dev/react';
 
 const TopBar = ({marketplace, portfolio, createNFT}) => {
 
-  const { connectedAddress, connectWallet } = useStateContext();
-  const router = useRouter()
+    const signer = useSigner()
+    const connectedAddress = useAddress()
+    const router = useRouter()
 
   function goToMarketplace() {
     router.push("/marketplace")
@@ -64,7 +65,7 @@ const TopBar = ({marketplace, portfolio, createNFT}) => {
             <ConnectWalletButton>
                 {formatString(connectedAddress)}
             </ConnectWalletButton>
-            : <ConnectWalletButton onClick={connectWallet}>
+            : <ConnectWalletButton theme={'dark'}>
                 Connect Wallet
             </ConnectWalletButton>
             }
@@ -131,7 +132,7 @@ background-color: rgba(255, 251, 254, 0.1);
 outline: 1px solid rgba(255, 251, 254, 0.5);
 `
 
-const ConnectWalletButton = styled.button`
+const ConnectWalletButton = styled(ConnectWallet)`
 padding: ${SIZING.px16} ${SIZING.px24};
 font-size: ${SIZING.px16};
 letter-spacing: -0.02rem;

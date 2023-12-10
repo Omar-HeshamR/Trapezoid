@@ -9,10 +9,10 @@ import PromptCard from './PromptCard'
 
 const NFTCard = ({ nft }) => {
 
-  const { selectedNFT, setSelectedNFT, showBuyModal, setShowBuyModal} = useStateContext();
+  const { showBuyModal, setShowBuyModal} = useStateContext();
 
   const [ showPromptCard, setShowPromptCard ] = useState(false)
-  const [isOwnerTextOverflowed, setIsOwnerTextOverflowed] = useState(false)
+  const [ isOwnerTextOverflowed, setIsOwnerTextOverflowed] = useState(false)
 
   const ownerRef = useRef(null)
 
@@ -28,12 +28,12 @@ const NFTCard = ({ nft }) => {
       window.removeEventListener('resize', checkOverflow);
     };
   }, []);
+
   const formatString = str => `${str.slice(0, 5)}...${str.slice(-5)}`;
 
   return (
     <Card>
-
-      {!showPromptCard &&
+      {!showPromptCard ?
       <>
       <ImageContainer>
         <Owner ref={ownerRef} isOverflowed={isOwnerTextOverflowed}>
@@ -64,12 +64,12 @@ const NFTCard = ({ nft }) => {
 
         <ButtonRow>
             {nft.isOwner && (
-            <ViewPromptButton onClick={() => {setSelectedNFT(nft); setShowPromptCard(true)}} >
+            <ViewPromptButton onClick={() => {setShowPromptCard(true)}} >
               View prompt
             </ViewPromptButton>
             )}
             {!nft.isOwner && 
-            <BuyButton onClick={() => {setSelectedNFT(nft); setShowBuyModal(true);}}>
+            <BuyButton onClick={() => {setShowBuyModal(true);}}>
               Buy
             </BuyButton>
             }
@@ -77,13 +77,12 @@ const NFTCard = ({ nft }) => {
 
       </BottomContainer>
       </>
-      }
-    
-      <PromptCard
+      :       
+        <PromptCard 
+        selectedNFT={nft} 
         showPromptCard={showPromptCard}
         setShowPromptCard={setShowPromptCard}
-        selectedNFT={selectedNFT}
-      />
+        />    }
 
     </Card>
   )
