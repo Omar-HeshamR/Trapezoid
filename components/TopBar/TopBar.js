@@ -4,7 +4,7 @@ import { SIZING } from '@/library/theme'
 import { COLORS } from '@/library/theme'
 import TopBarLogo from './TopBarLogo'
 import { useRouter } from 'next/router'
-
+import { ConnectWallet } from '@thirdweb-dev/react'
 
 const TopBar = ({marketplace, portfolio, createNFT}) => {
 

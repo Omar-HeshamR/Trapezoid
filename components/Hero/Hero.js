@@ -31,7 +31,7 @@ const Hero = () => {
                 <HeroHeader>
                   Generate awesome NFTs using
                   <LetterSpacingSpan>
-                    &nbsp;generative AI
+                    &nbsp;generative AI & sell your prompt art
                   </LetterSpacingSpan>
                 </HeroHeader>
 

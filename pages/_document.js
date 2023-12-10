@@ -32,9 +32,7 @@ class MyDocument extends Document {
     return (
       <Html>
         <Head>
-        <title>Trapezoid</title>
         <meta name="description" content="Generative AI NFT marketplace" />
-        {/* <meta name="viewport" content="width=device-width, initial-scale=1" /> */}
         <link rel="icon" href="/favicon.ico" />
         </Head>
         <body>

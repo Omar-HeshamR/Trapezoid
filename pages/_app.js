@@ -4,8 +4,7 @@ import { SIZING } from '@/library/theme';
 import Head from 'next/head';
 import { StateContext } from '@/context/StateContext';
 import BuyModal from '@/components/Modals/BuyModal';
-import toast, { Toaster } from 'react-hot-toast';
-
+import { Toaster } from 'react-hot-toast';
 
 export const GlobalStyle = createGlobalStyle`
   * 
@@ -72,8 +71,8 @@ export default function App({ Component, pageProps }) {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-
       <StateContext>
+
         <BuyModal/>
         <GlobalStyle />
         <Component {...pageProps} />
@@ -94,7 +93,6 @@ export default function App({ Component, pageProps }) {
             },
           }}
        />
-
       </StateContext>
     </>
   )
