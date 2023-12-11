@@ -15,7 +15,7 @@ import TRAPEZOIDABI from '@/library/TrapezoidABI.json'
 import { useStateContext } from '@/context/StateContext.js'
 import { useRouter } from 'next/router'
 import { ethers } from 'ethers';
-import { useStorage, useAddress, useSigner } from '@thirdweb-dev/react';
+import { useStorage, useAddress, useSigner, useStorageUpload } from '@thirdweb-dev/react';
 
 const CreateNFT = () => {
 
@@ -32,6 +32,9 @@ const CreateNFT = () => {
   const storage = useStorage();
   const signer = useSigner();
   const connectedAddress = useAddress();
+
+  // const [file, setFile] = useState(null);
+  // const { mutateAsync: upload, data: ipfsUrl } = useStorageUpload();
 
   async function callImageGenerateApi() {
     if (name.trim() === '' || generationPrompt.trim() === '') {
@@ -54,10 +57,24 @@ const CreateNFT = () => {
          return;
     }
     const imageJson = await response.json();
-    console.log("response", imageJson)
+    // console.log("response", imageJson)
+    // console.log("HERER: ", imageJson.image.url)
+    // const proxyUrl = `/api/fetchImage?url=${encodeURIComponent(imageJson.image.url)}`;
+
+    // fetch(proxyUrl)
+    // .then(response => response.blob())
+    // .then(async (blob) => {
+    //   const imageFile = new File([blob], 'image.png', { type: 'image/png' });
+    //   setFile(imageFile);
+    //   console.log(imageFile)
+    //   const uploadRes = await upload(proxyUrl);
+    //   console.log(uploadRes)
+    // })
+    // .catch(error => console.error('Error fetching image:', error));
+
     setImageGenerated(imageJson.image)
     setInitialImageGenerationLoad(false)
-    setInitialSuccessfulGenerationResult(true)
+    setInitialSuccessfulGenerationResult(true)  
 }
 
   async function mintNFT() {
