@@ -132,7 +132,7 @@ list-style: none;
 const MenuItem = styled.li`
 font-size: ${SIZING.px16};
 letter-spacing: -0.05rem;
-font-family: "Haskoy Semibold";
+font-family: "Haskoy Bold";
 color: ${COLORS.StandardWhiteDefault};
 transition: 0.2s ease-in-out;
 cursor: pointer;

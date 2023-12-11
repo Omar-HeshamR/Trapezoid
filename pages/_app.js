@@ -6,7 +6,7 @@ import { StateContext } from '@/context/StateContext';
 import BuyModal from '@/components/Modals/BuyModal';
 import { Toaster } from 'react-hot-toast';
 import { ThirdwebProvider} from "@thirdweb-dev/react";
-import 'library/global.css'
+import '@/library/global.css'
 
 export const GlobalStyle = createGlobalStyle`
   * 

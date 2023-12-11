@@ -7,7 +7,6 @@ import { useRouter } from 'next/router'
 import { useAddress, useSigner, ConnectWallet } from '@thirdweb-dev/react';
 import { darkTheme, lightTheme } from "@thirdweb-dev/react";
 
-
 const TopBar = ({marketplace, portfolio, createNFT}) => {
 
     const customDarkTheme = darkTheme({
