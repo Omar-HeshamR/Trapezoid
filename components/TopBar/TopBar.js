@@ -5,8 +5,36 @@ import { COLORS } from '@/library/theme'
 import TopBarLogo from './TopBarLogo'
 import { useRouter } from 'next/router'
 import { useAddress, useSigner, ConnectWallet } from '@thirdweb-dev/react';
+import { darkTheme, lightTheme } from "@thirdweb-dev/react";
+
 
 const TopBar = ({marketplace, portfolio, createNFT}) => {
+
+    const customDarkTheme = darkTheme({
+        fontFamily: "Inter, sans-serif",
+        colors: {
+          primaryText: "rgba(255, 251, 254, 1)",
+          secondaryText: "rgba(255, 251, 254, 0.8)",
+          modalBg: "#000000",
+          dropdownBg: "rgba(8, 7, 8, 1)",
+          primaryButtonBg: "rgba(255, 251, 254, 0.15)",
+          primaryButtonText: "rgba(255, 251, 254, 1)",
+          accentText: "#E5446D",
+          accentButtonBg: "#3423A6",
+          borderColor: "rgba(255, 251, 254, 0.1)",
+          separatorLine: "rgba(255, 251, 254, 0.05)",
+          secondaryButtonBg: "rgba(255, 251, 254, 0.15)",
+          secondaryButtonHoverBg: "rgba(255, 251, 254, 0.1)",
+          secondaryButtonText: "rgba(255, 251, 254, 1)",
+          connectedButtonBg: "rgba(255, 251, 254, 0.15)",
+          connectedButtonBgHover: "rgba(255, 251, 254, 0.1)",
+          walletSelectorButtonHoverBg: "rgba(255, 251, 254, 0.1)",
+          secondaryIconHoverColor: "#ffffff",
+          secondaryIconHoverBg: "#ffffff",
+          secondaryIconColor: "#ffffff",
+          selectedTextBg: "rgba(255, 251, 254, 1)",
+        },
+    });
 
     const signer = useSigner()
     const connectedAddress = useAddress()
@@ -62,13 +90,14 @@ const TopBar = ({marketplace, portfolio, createNFT}) => {
                 )}
             </Menu>
             { connectedAddress ? 
-            <ConnectWalletButton>
+            <ConnectWallet theme={customDarkTheme}>
                 {formatString(connectedAddress)}
-            </ConnectWalletButton>
-            : <ConnectWalletButton theme={'dark'}>
+            </ConnectWallet>
+            : <ConnectWallet theme={customDarkTheme}>
                 Connect Wallet
-            </ConnectWalletButton>
+            </ConnectWallet>
             }
+
         </Nav>
 
     </Section>
@@ -133,21 +162,20 @@ outline: 1px solid rgba(255, 251, 254, 0.5);
 `
 
 const ConnectWalletButton = styled(ConnectWallet)`
-padding: ${SIZING.px16} ${SIZING.px24};
-font-size: ${SIZING.px16};
-letter-spacing: -0.02rem;
-font-family: "Haskoy Bold";
-color: ${COLORS.StandardWhiteDefault};
-border-radius: ${SIZING.px4};
-background-color: rgba(255, 251, 254, 0.15);
-border: 1px solid rgba(255, 251, 254, 0.2);
-outline: none;
-transition: 0.2s ease-in-out;
-z-index: 3;
-cursor: pointer;
+padding: ${SIZING.px8} ${SIZING.px16} !important;
+font-size: ${SIZING.px16} !important;
+letter-spacing: -0.02rem !important;
+font-family: "Haskoy Bold" !important;
+color: ${COLORS.StandardWhiteDefault} !important;
+border-radius: ${SIZING.px4} !important;
+background-color: rgba(255, 251, 254, 0.15) !important;
+border: 1px solid rgba(255, 251, 254, 0.2) !important;
+outline: none !important;
+transition: 0.2s ease-in-out !important;
+cursor: pointer !important;
 
 &:hover{
-letter-spacing: 0rem;
+letter-spacing: 0rem !important;
 }
 `
 export default TopBar

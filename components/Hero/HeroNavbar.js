@@ -5,10 +5,36 @@ import { SIZING } from '@/library/theme'
 import Image from 'next/image'
 import TrapezoidLogoLight from '@/public/images/TrapezoidLogoLight.webp'
 import { useRouter } from 'next/router'
-import { useStateContext } from '../../context/StateContext'
 import { ConnectWallet } from '@thirdweb-dev/react';
+import { darkTheme, lightTheme } from "@thirdweb-dev/react";
 
 const HeroNavbar = () => {
+
+    const customDarkTheme = lightTheme({
+        fontFamily: "Inter, sans-serif",
+        colors: {
+          primaryText: "rgba(255, 251, 254, 1)",
+          secondaryText: "rgba(255, 251, 254, 0.8)",
+          modalBg: "#000000",
+          dropdownBg: "rgba(8, 7, 8, 1)",
+          primaryButtonBg: "rgba(255, 251, 254, 0.15)",
+          primaryButtonText: "rgba(255, 251, 254, 1)",
+          accentText: "#E5446D",
+          accentButtonBg: "#3423A6",
+          borderColor: "rgba(255, 251, 254, 0.1)",
+          separatorLine: "rgba(255, 251, 254, 0.05)",
+          secondaryButtonBg: "rgba(255, 251, 254, 0.15)",
+          secondaryButtonHoverBg: "rgba(255, 251, 254, 0.1)",
+          secondaryButtonText: "rgba(255, 251, 254, 1)",
+          connectedButtonBg: "rgba(255, 251, 254, 0.15)",
+          connectedButtonBgHover: "rgba(255, 251, 254, 0.1)",
+          walletSelectorButtonHoverBg: "rgba(255, 251, 254, 0.1)",
+          secondaryIconHoverColor: "#ffffff",
+          secondaryIconHoverBg: "#ffffff",
+          secondaryIconColor: "#ffffff",
+          selectedTextBg: "rgba(255, 251, 254, 1)",
+        },
+    });
 
     const router = useRouter()
     const formatString = str => `${str.slice(0, 7)}...${str.slice(-5)}`;
@@ -36,6 +62,7 @@ const HeroNavbar = () => {
         </Logo>
 
         <LeftRow>
+
             <Menu>
                 <MenuItem onClick={goToMarketplace}>
                     Marketplace
@@ -47,9 +74,9 @@ const HeroNavbar = () => {
                     Create NFT
                 </MenuItem>
             </Menu>
-            <ConnectWalletButton theme={'dark'}>
-                Connect Wallet
-            </ConnectWalletButton>
+
+            <ConnectWallet theme={customDarkTheme}/>
+
         </LeftRow>
 
     </Nav>
@@ -115,23 +142,6 @@ padding: ${SIZING.px8} ${SIZING.px16};
 border-radius: ${SIZING.px2};
 background-color: rgba(255, 251, 254, 0.1);
 outline: 1px solid rgba(255, 251, 254, 0.5);
-}
-`
-const ConnectWalletButton = styled(ConnectWallet)`
-padding: ${SIZING.px16} ${SIZING.px24};
-font-size: ${SIZING.px16};
-letter-spacing: -0.02rem;
-font-family: "Haskoy Bold";
-color: ${COLORS.StandardWhiteDefault};
-border-radius: ${SIZING.px4};
-background-color: rgba(255, 251, 254, 0.15);
-border: 1px solid rgba(255, 251, 254, 0.2);
-outline: none;
-transition: 0.2s ease-in-out;
-cursor: pointer;
-
-&:hover{
-letter-spacing: 0rem;
 }
 `
 const HeroNavbarLogoText = styled.span`
