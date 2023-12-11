@@ -40,7 +40,8 @@ const Marketplace = () => {
         return finalNFT;
       });
       const allNFTs = await Promise.all(dataPromises);
-      setNfts(allNFTs);
+      const filteredNFTs = allNFTs.filter(nft => (nft.isOwner == false && nft.isMaker == false));
+      setNfts(filteredNFTs);
       console.log(allNFTs)
       setLoadingMarketplace(false)
     }catch(err){console.log(err)}

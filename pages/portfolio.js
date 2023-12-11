@@ -39,7 +39,8 @@ const Portfolio = () => {
         return finalNFT;
       });
       const allNFTs  = await Promise.all(dataPromises);
-      setNfts(allNFTs );
+      const filteredNFTs = allNFTs.filter(nft => nft.isOwner === true);
+      setNfts(filteredNFTs);
       console.log(allNFTs)
       setLoading(false)
     }catch(err){console.log(err)}
